@@ -1,0 +1,46 @@
+.Navbar {
+  background-color: #9c27b0;
+  color: #f3ebf6;
+  text-transform: uppercase;
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.4);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 20px;
+  padding-left: 20px
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mode-switch {
+  display: inline-block;
+  cursor: pointer;
+  padding: 0px 10px;
+  position: relative;
+}
+
+.mode-switch:hover {
+  background-color: #872099;
+}
+
+.theme-switch {
+  display: inline-block;
+  cursor: pointer;
+  padding: 0px 10px;
+}
+
+.theme-switch:hover {
+  background-color: #872099;
+}

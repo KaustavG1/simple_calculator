@@ -1,0 +1,6 @@
+.Keypad {
+  display: grid;
+  grid-template-columns: 75px 75px 75px 150px;
+  gap: 2px;
+  flex: 1;
+}

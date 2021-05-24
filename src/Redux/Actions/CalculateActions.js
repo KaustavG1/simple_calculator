@@ -1,5 +1,6 @@
 import { UPDATE, ADD, SUBTRACT, MULTIPLY, DIVIDE, CLEAR, EQUAL, SIGN, SQUARE, SQUARE_ROOT } from './ActionConstants';
 
+// Action to update displayed number
 function update(data) {
   return {
     type: UPDATE,
@@ -10,6 +11,7 @@ function update(data) {
   }
 }
 
+// Action to perform addition
 function addition(data) {
   return {
     type: ADD,
@@ -20,6 +22,7 @@ function addition(data) {
   };
 }
 
+// Action to perform subtraction
 function subtraction(data) {
   return {
     type: SUBTRACT,
@@ -30,6 +33,7 @@ function subtraction(data) {
   };
 }
 
+// Action to perform multiplication
 function multiplication(data) {
   return {
     type: MULTIPLY,
@@ -40,6 +44,7 @@ function multiplication(data) {
   };
 }
 
+// Action to perform division
 function division(data) {
   return {
     type: DIVIDE,
@@ -50,6 +55,7 @@ function division(data) {
   };
 }
 
+// Action to clear the display and memory
 function clearDisplay(data) {
   return {
     type: CLEAR,
@@ -60,6 +66,7 @@ function clearDisplay(data) {
   };
 }
 
+// Action to perform equals
 function equals(data) {
   return {
     type: EQUAL,
@@ -70,6 +77,7 @@ function equals(data) {
   };
 }
 
+// Action to change sign of the displayed number
 function sign(data) {
   return {
     type: SIGN,
@@ -80,6 +88,7 @@ function sign(data) {
   };
 }
 
+// Action to perform square of the displayed number
 function square(data) {
   return {
     type: SQUARE,
@@ -90,6 +99,7 @@ function square(data) {
   };
 }
 
+// Action to perform square root of the displayed number
 function squareRoot(data) {
   return {
     type: SQUARE_ROOT,

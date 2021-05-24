@@ -11,6 +11,7 @@
   align-items: center;
 }
 
+/* Header */
 .header {
   cursor: pointer;
   font-weight: bold;
@@ -19,11 +20,12 @@
 }
 
 .options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+/* Mode Switch */
 .mode-switch {
   display: inline-block;
   cursor: pointer;
@@ -35,6 +37,7 @@
   background-color: #872099;
 }
 
+/* Theme Switch */
 .theme-switch {
   display: inline-block;
   cursor: pointer;

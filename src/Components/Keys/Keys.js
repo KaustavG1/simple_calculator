@@ -1,12 +1,16 @@
 import React from 'react';
 import './Keys.css';
-import { useDispatch } from 'react-redux';
-// eslint-disable-next-line 
-import { update, addition, subtraction, multiplication, division, clearDisplay, equals, sign, square, squareRoot } from '../../Redux/Actions/Actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { update, addition, subtraction, multiplication, division, clearDisplay, equals, sign, square, squareRoot } from '../../Redux/Actions/CalculateActions';
 
 function Keys(props) {
   const dispatch = useDispatch();
+  
+  // Get the current Theme Value from store
+  let themeValue = useSelector(state => state.ModeReducer.isDarkTheme);
+  let keyTheme = themeValue ? "Dark" : "Light";
 
+  // Handle Calculator Key click events
   function handleClick(event) {
     if(typeof(props.text) !== 'string') {
       dispatch(update(props.text));
@@ -23,13 +27,20 @@ function Keys(props) {
         dispatch(multiplication(props.text));
       } else if(props.text === '/') {
         dispatch(division(props.text));
+      }else if(props.text === '+/-') {
+        dispatch(sign(props.text));
+      } else if(props.text === 'SQ(x)') {
+        dispatch(square(props.text));
+      } else if(props.text === 'SQRT(x)') {
+        dispatch(squareRoot(props.text));
+      } else {
+        console.log("ERROR!");
       }
-    }
-    
+    }    
   }
 
   return (
-    <div className="Keys" onClick={handleClick}>
+    <div className={`Keys ${keyTheme}Keys`} onClick={handleClick}>
       {props.text}
     </div>
   );

@@ -1,5 +1,6 @@
 import { UPDATE, ADD, SUBTRACT, MULTIPLY, DIVIDE, CLEAR, EQUAL, SIGN, SQUARE, SQUARE_ROOT } from '../Actions/ActionConstants';
 
+// Initial Calculation state
 const initialState = {
   currentNumber: 0,
   previousNumber: 0,
@@ -7,29 +8,40 @@ const initialState = {
   pendingOperation: ""
 };
 
+// Reacts to changes in Calculator Keypad
 function CalculateReducer(state = initialState, action) {
+  // Calculate pending operations
+  function calculatePending() {
+    if(state.pendingOperation === "+" || state.pendingOperation === "") {
+      return (parseInt(state.previousNumber) + parseInt(state.currentNumber)).toString();
+    } else if(state.pendingOperation === "-" || state.pendingOperation === "") {
+      return (parseInt(state.previousNumber) - parseInt(state.currentNumber)).toString();
+    } else if(state.pendingOperation === "*" || state.pendingOperation === "") {
+      return (parseInt(state.previousNumber) * parseInt(state.currentNumber)).toString();
+    } else if(state.pendingOperation === "/" || state.pendingOperation === "") {
+      let temp = (parseInt(state.previousNumber) / parseInt(state.currentNumber)).toString();
+      // Show 'Undefined Value' for divide by zero error
+      if(isNaN(temp)) {
+        return "Undefined Value";
+      } else {
+        return temp;
+      }
+    }
+  }
+
   let newResult = 0;
+
   switch (action.type) {
     case UPDATE:
-      console.log(action.type);
+      // If currently displayed number is non zero or previous operation is number, append to the displayed number else replace it
       newResult = state.currentNumber === 0 || state.previousOperation !== "num" ? action.payload.data : state.currentNumber.toString() + action.payload.data;
       return {
         ...state, currentNumber: newResult, previousOperation: "num"
       };
 
     case ADD:
-      console.log(action.type);
       if(state.previousOperation !== "operator") {
-        if(state.pendingOperation === "+" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) + parseInt(state.currentNumber)).toString();
-        } else if(state.pendingOperation === "-" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) - parseInt(state.currentNumber)).toString();
-        } else if(state.pendingOperation === "*" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) * parseInt(state.currentNumber)).toString();
-        }  else if(state.pendingOperation === "/" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) / parseInt(state.currentNumber)).toString();
-        }
-        
+        newResult = calculatePending();
         return {
           ...state, currentNumber: newResult, previousNumber: newResult, previousOperation: "operator", pendingOperation: "+"
         }
@@ -37,18 +49,8 @@ function CalculateReducer(state = initialState, action) {
       break;
 
     case SUBTRACT:
-      console.log(action.type);
       if(state.previousOperation !== "operator") {
-        if(state.pendingOperation === "+" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) + parseInt(state.currentNumber)).toString();
-        } else if(state.pendingOperation === "-" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) - parseInt(state.currentNumber)).toString();
-        } else if(state.pendingOperation === "*" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) * parseInt(state.currentNumber)).toString();
-        }  else if(state.pendingOperation === "/" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) / parseInt(state.currentNumber)).toString();
-        }
-        
+        newResult = calculatePending();        
         return {
           ...state, currentNumber: newResult, previousNumber: newResult, previousOperation: "operator", pendingOperation: "-"
         }
@@ -56,18 +58,8 @@ function CalculateReducer(state = initialState, action) {
       break;
 
     case MULTIPLY:
-      console.log(action.type);
       if(state.previousOperation !== "operator") {
-        if(state.pendingOperation === "+" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) + parseInt(state.currentNumber)).toString();
-        } else if(state.pendingOperation === "-" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) - parseInt(state.currentNumber)).toString();
-        } else if(state.pendingOperation === "*" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) * parseInt(state.currentNumber)).toString();
-        }  else if(state.pendingOperation === "/" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) / parseInt(state.currentNumber)).toString();
-        }
-        
+        newResult = calculatePending();        
         return {
           ...state, currentNumber: newResult, previousNumber: newResult, previousOperation: "operator", pendingOperation: "*"
         }
@@ -75,18 +67,8 @@ function CalculateReducer(state = initialState, action) {
       break;
 
     case DIVIDE:
-      console.log(action.type);
       if(state.previousOperation !== "operator") {
-        if(state.pendingOperation === "+" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) + parseInt(state.currentNumber)).toString();
-        } else if(state.pendingOperation === "-" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) - parseInt(state.currentNumber)).toString();
-        } else if(state.pendingOperation === "*" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) * parseInt(state.currentNumber)).toString();
-        }  else if(state.pendingOperation === "/" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) / parseInt(state.currentNumber)).toString();
-        }
-        
+        newResult = calculatePending();
         return {
           ...state, currentNumber: newResult, previousNumber: newResult, previousOperation: "operator", pendingOperation: "/"
         }
@@ -94,24 +76,13 @@ function CalculateReducer(state = initialState, action) {
       break;
 
     case CLEAR:
-      console.log(action.type);
       return {
         ...state, currentNumber: 0, previousNumber: 0, previousOperation: "num"
       }
 
     case EQUAL:
-      console.log(action.type);
       if(state.previousOperation !== "operator") {
-        if(state.pendingOperation === "+" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) + parseInt(state.currentNumber)).toString();
-        } else if(state.pendingOperation === "-" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) - parseInt(state.currentNumber)).toString();
-        } else if(state.pendingOperation === "*" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) * parseInt(state.currentNumber)).toString();
-        }  else if(state.pendingOperation === "/" || state.pendingOperation === "") {
-          newResult = (parseInt(state.previousNumber) / parseInt(state.currentNumber)).toString();
-        }
-        
+        newResult = calculatePending();
         return {
           ...state, currentNumber: newResult, previousNumber: 0, previousOperation: "operator", pendingOperation: ""
         }
@@ -119,31 +90,29 @@ function CalculateReducer(state = initialState, action) {
       break;
 
     case SIGN:
-      console.log(action.type);
-      newResult = state.currentNumber - (state.currentNumber * 2);
-      
+      newResult = state.currentNumber - (state.currentNumber * 2);      
       return {
         ...state, currentNumber: newResult, previousNumber: 0, previousOperation: "operator", pendingOperation: ""
       }
 
     case SQUARE:
-      console.log(action.type);
       newResult = (state.currentNumber * state.currentNumber);
-
       return {
         ...state, currentNumber: newResult, previousNumber: 0, previousOperation: "operator", pendingOperation: ""
       }
 
     case SQUARE_ROOT:
-      console.log(action.type);
-      newResult = Math.sqrt(state.currentNumber);
-
+      // Show Immaginary Number while performing operations on negative numbers
+      if(state.currentNumber > 0) {
+        newResult = Math.sqrt(state.currentNumber);
+      } else {
+        newResult = "Immaginary number";
+      }
       return {
         ...state, currentNumber: newResult, previousNumber: 0, previousOperation: "operator", pendingOperation: ""
       }
       
     default:
-      console.log(action.type);
       break;
   }
   return state;

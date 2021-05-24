@@ -1,20 +1,14 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, compose } from 'redux';
 import RootReducer from '../Reducers/RootReducer';
 
-// const Store = createStore(RootReducer);
-
+// For Redux Dev Tools
 const composeEnhancers =
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-    }) : compose;
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
 
-const enhancer = composeEnhancers(
-  applyMiddleware(),
-  // other store enhancers if any
-);    
+// For Redux Dev Tools    
+const enhancer = composeEnhancers();    
 
-// const store = createStore(RootReducer, applyMiddleware(thunk));
+// Create Store
 const Store = createStore(RootReducer, enhancer);
 
 export default Store;
